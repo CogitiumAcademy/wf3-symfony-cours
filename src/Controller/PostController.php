@@ -19,9 +19,13 @@ class PostController extends AbstractController
     #[Route('/post/{id}', name: 'post_view', methods: ["GET"], requirements: ['id' => '\d+'])]
     public function post_view($id): Response
     {
-        return $this->render('post/view.html.twig', [
-            'ma_case' => 'Test ID',
-            'id' => $id,
+        return $this->render('post/post.html.twig', [
+            'post' => [
+                'title' => 'Le titre',
+                'content' => 'Le super contenu',
+                'displayName' => 'Ph Giraud',
+                'createdAt' => '07/11/2023 à 11h46'
+            ]
         ]);
     }
 
