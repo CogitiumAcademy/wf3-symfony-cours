@@ -15,4 +15,14 @@ class PostController extends AbstractController
             'controller_name' => 'PostController',
         ]);
     }
+
+    #[Route('/post/{id}', name: 'post_view', methods: ["GET"], requirements: ['id' => '\d+'])]
+    public function post_view($id): Response
+    {
+        return $this->render('post/view.html.twig', [
+            'ma_case' => 'Test ID',
+            'id' => $id,
+        ]);
+    }
+
 }
