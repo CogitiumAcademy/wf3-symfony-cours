@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -19,6 +20,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\Column(length: 120)]
+    #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
@@ -34,6 +36,11 @@ class Category
     {
         $this->categories = new ArrayCollection();
         $this->posts = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -58,12 +65,14 @@ class Category
         return $this->slug;
     }
 
+    /*
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
 
         return $this;
     }
+    */
 
     public function getParent(): ?self
     {
