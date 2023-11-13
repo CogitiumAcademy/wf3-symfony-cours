@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,23 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PostController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(PostRepository $postRepository): Response
     {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-        ]);
-    }
+        $posts = $postRepository->findAll();
+        //dd($posts);
 
-    #[Route('/post/{id}', name: 'post_view', methods: ["GET"], requirements: ['id' => '\d+'])]
-    public function post_view($id): Response
-    {
-        return $this->render('post/post.html.twig', [
-            'post' => [
-                'title' => 'Le titre',
-                'content' => 'Le super contenu',
-                'displayName' => 'Ph Giraud',
-                'createdAt' => '07/11/2023 à 11h46'
-            ]
+        return $this->render('post/index.html.twig', [
+            'posts' => $posts,
         ]);
     }
 
@@ -53,4 +44,16 @@ class PostController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    //#[Route('/post/{id}', name: 'post_view', methods: ["GET"], requirements: ['id' => '\d+'])]
+    #[Route('/post/{slug}', name: 'post_view', methods: ["GET"])]
+    public function post_view(Post $post): Response
+    {
+        //dd($post);
+
+        return $this->render('post/post.html.twig', [
+            'post' => $post
+        ]);
+    }
+
 }
