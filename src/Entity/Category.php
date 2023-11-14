@@ -30,6 +30,7 @@ class Category
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private Collection $posts;
 
     public function __construct()
