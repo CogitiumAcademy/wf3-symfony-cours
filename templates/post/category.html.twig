@@ -1,6 +1,6 @@
 {% extends 'clean.html.twig' %}
 
-{% block title %}Page d'accueil{% endblock %}
+{% block title %}Filtre catégorie{% endblock %}
 
 {% block content %}
 
@@ -10,8 +10,8 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
-                        <h1>Clean Blog</h1>
-                        <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                        <h1>Nos articles</h1>
+                        <span class="subheading">De la catégorie {{ category.name }}</span>  
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
 
             <div class="col-md-10 col-lg-8 col-xl-7">
 
-                {% for post in posts %}
+                {% for post in category.posts %}
                     <!-- Post preview-->
                     <div class="post-preview">
                         <!--<a href="{# path('post_view', {id: post.id}) #}">-->
@@ -54,19 +54,6 @@
 
                 <!-- Pager-->
                 <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-            </div>
-
-            <div class="col-md-2 col-lg-2 col-xl-2">
-                <h2>Historique</h2>
-
-                {% for post in oldposts %}
-                    <a href="{{ path('post_view', {slug: post.slug}) }}">{{ post.title }}</a>
-                    <br>
-                    {{ post.createdAt | ago }}
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                {% endfor %}
-
             </div>
 
         </div>

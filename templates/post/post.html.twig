@@ -31,9 +31,26 @@
 
                     {{ post.content | raw }}
 
+                    <h2>Les commentaires</h2>
+                    <ul>
+                    {% for comment in post.comments %}
+                        <li>{{ comment.content }} - Rédigé par {{ comment.user.displayName }} - {{ comment.createdAt | ago }}</li>
+                    {% endfor %}
+                    </ul>
+
+                    <h2>Proposez un commentaire</h2>
+
+                    {% if not is_granted("ROLE_USER") %}
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_register') }}">S'inscrire</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_login') }}">Login</a>
+                    {% else %}
+                        {{ form(form) }}
+                    {% endif %}
+
                 </div>
             </div>
         </div>
     </article>
+
 
 {% endblock %}
