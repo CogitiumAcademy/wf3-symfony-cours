@@ -22,7 +22,7 @@ class CategoryType extends AbstractType
                 ]
             )
             //->add('slug')
-            //->add('parent')
+            ->add('parent')
             ->add('Valider', SubmitType::class)
         ;
     }

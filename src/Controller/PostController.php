@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
@@ -35,8 +36,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/add', name: 'post_add')]
+    //#[IsGranted('ROLE_USER')]
     public function addPost(Request $request, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
 
