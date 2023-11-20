@@ -35,6 +35,7 @@ class CategoryController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($category);
             $em->flush();
+            $this->addFlash('success', 'Catégorie créée !');
             return $this->redirectToRoute('admin_category_index');
         }
 
@@ -55,6 +56,7 @@ class CategoryController extends AbstractController
             $em = $doctrine->getManager();
             // $em->persist($category);
             $em->flush();
+            $this->addFlash('success', 'La catégorie a bien été modifiée !');
             return $this->redirectToRoute('admin_category_index');
         }
 

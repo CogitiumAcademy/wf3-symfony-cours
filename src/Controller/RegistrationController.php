@@ -56,6 +56,8 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
+            $this->addFlash('success', 'Votre compte a bien été créé, vous êtes connecté !');
+
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -77,7 +79,7 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+            $this->addFlash('danger', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
             return $this->redirectToRoute('app_register');
         }

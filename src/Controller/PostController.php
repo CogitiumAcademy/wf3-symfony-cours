@@ -50,6 +50,7 @@ class PostController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();
+            $this->addFlash('success', 'Votre article a été proposé !');
             return $this->redirectToRoute('home');
         }
         
@@ -73,6 +74,7 @@ class PostController extends AbstractController
             $em->persist($comment);
             $em->flush();
             //return $this->redirectToRoute('home');
+            $this->addFlash('success', 'Votre commentaire a bien été enregistré !');
             return $this->redirectToRoute('post_view', array('slug' => $post->getSlug()));
         }
 

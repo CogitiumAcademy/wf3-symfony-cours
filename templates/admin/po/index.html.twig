@@ -1,0 +1,43 @@
+{% extends 'sbadmin.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block content %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Image</th>
+                <th>CreatedAt</th>
+                <th>Active</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.slug }}</td>
+                <td><img src="{{ post.image }}" width="200"></td>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.active ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_po_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('app_admin_po_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_po_new') }}">Create new</a>
+{% endblock %}

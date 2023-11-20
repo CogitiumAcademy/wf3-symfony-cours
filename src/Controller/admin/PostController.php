@@ -57,6 +57,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
+            $this->addFlash('success', 'L\'article a bien été modifié !');
             return $this->redirectToRoute('admin_post_index');
         }
 
@@ -73,10 +74,10 @@ class PostController extends AbstractController
             $em = $doctrine->getManager();
             $em->remove($post);
             $em->flush();
+            $this->addFlash('success', 'Article supprimé !');
         } else {
             $this->addFlash('danger', 'Token absent ou invalide !');
         }
-        //$this->addFlash('success', 'Article supprimé !');
         return $this->redirectToRoute('admin_post_index');
     }
 }
